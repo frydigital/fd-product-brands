@@ -1,20 +1,29 @@
 <?php
-class Product_Brand_Meta extends WooCommerce_Product_Brand {
-  
+class Product_Brand_Meta extends WooCommerce_Product_Brand
+{
+
   public function __construct()
   {
-      // Add custom fields to the term edit page
-      add_action('product_brand_edit_form_fields', array($this, 'add_brand_fields'), 10, 2);
+    // Add custom fields to the term edit page
+    add_action('product_brand_edit_form_fields', array($this, 'add_brand_fields'), 10, 2);
 
-      // Save custom fields when the term is edited
-      add_action('edited_product_brand', array($this, 'save_brand_fields'), 10, 2);
+    // Save custom fields when the term is edited
+    add_action('edited_product_brand', array($this, 'save_brand_fields'), 10, 2);
+    
+    // Add custom fields to the term add page
+    add_action('product_brand_add_form_fields', array($this, 'add_brand_fields'), 10, 2);
+
+    // Save custom fields when a new term is created
+    add_action('created_product_brand', array($this, 'save_brand_fields'), 10, 2);
   }
 
 
-  public function add_brand_fields($term, $taxonomy) {
-    $brand_image_id = get_term_meta($term->term_id, 'brand_image_id', true);
-    $brand_weight = get_term_meta($term->term_id, 'brand_weight', true);
-    ?>
+  public function add_brand_fields($term)
+  {
+      $brand_image_id = get_term_meta($term->term_id, 'brand_image_id', true);
+      $brand_weight = get_term_meta($term->term_id, 'brand_weight', true);
+
+?>
     <tr class="form-field">
       <th scope="row" valign="top">
         <label for="brand_image"><?php _e('Brand Image', 'my-text-domain'); ?></label>
@@ -39,10 +48,11 @@ class Product_Brand_Meta extends WooCommerce_Product_Brand {
         ?>
       </td>
     </tr>
-    <?php
+<?php
   }
 
-  public function save_brand_fields($term_id, $taxonomy) {
+  public function save_brand_fields($term_id, $taxonomy_id)
+  {
     if (isset($_POST['brand_image_id'])) {
       update_term_meta($term_id, 'brand_image_id', absint($_POST['brand_image_id']));
     }

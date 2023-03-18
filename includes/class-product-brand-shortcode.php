@@ -13,7 +13,7 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand {
       'order' => 'asc'
     ), $atts, 'product_brand_list');
 
-    $terms = get_terms('product_brand', array(
+    $brands = get_terms('product_brand', array(
       'orderby' => $atts['orderby'],
       'order' => $atts['order'],
       'hide_empty' => false,
@@ -27,31 +27,31 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand {
 
     ob_start();
 
-    if (!empty($terms)) {
-      ?>
-      <ul class="product-brand-list">
-        <?php foreach ($terms as $term) { ?>
-          <li>
-            <?php
-            $image_id = get_term_meta($term->term_id, 'product_brand_image', true);
-            if (!empty($image_id)) {
-              $image = wp_get_attachment_image($image_id, 'thumbnail');
-              printf('<a href="%s">%s</a>', get_term_link($term->term_id), $image);
-            }
-            ?>
-            <span class="product-brand-name"><?php echo esc_html($term->name); ?></span>
-            <?php
-            $total_quantity = $this->get_total_quantity_by_term($term->term_id);
-            $total_value = $this->get_total_retail_value_by_term($term->term_id);
-            ?>
-            <span class="product-brand-stats">
-              <?php printf(__('Quantity: %s', 'woocommerce'), $total_quantity); ?>
-              <?php printf(__('Value: %s', 'woocommerce'), wc_price($total_value)); ?>
-            </span>
-          </li>
-        <?php } ?>
-      </ul>
-      <?php
+    $output = '';
+
+    if (!empty($brands)) {
+      $output .= '<div class="brand-gallery">';
+
+      foreach ($brands as $brand) {
+        $brand_id = $brand->term_id;
+        $brand_name = $brand->name;
+        $brand_image_id = get_term_meta($brand_id, 'brand_image', true);
+        $brand_image_url = wp_get_attachment_url($brand_image_id);
+        $brand_weight = get_term_meta($brand_id, 'brand_weight', true);
+
+        $output .= '<div class="brand-item">';
+        $output .= '<a href="' . esc_url(add_query_arg('product_brand', $brand_name, get_permalink(woocommerce_get_page_id('shop')))) . '">';
+        $output .= '<img src="' . $brand_image_url . '" alt="' . $brand_name . '" />';
+        $output .= '</a>';
+        $output .= '</div>';
+      }
+
+      $output .= '</div>';
+
+      // Add the Flickity scripts and styles
+      $output .= '<script src="' . plugin_dir_url(__FILE__) . 'js/flickity.min.js"></script>';
+      $output .= '<link rel="stylesheet" href="' . plugin_dir_url(__FILE__) . 'css/flickity.min.css" />';
+      $output .= '<script>jQuery(".brand-gallery").flickity();</script>';
     }
 
     $output = ob_get_clean();
