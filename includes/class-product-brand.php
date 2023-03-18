@@ -31,12 +31,10 @@ class WooCommerce_Product_Brand
   
   }
 
-
-
-
   public function product_brand_columns($columns)
   {
     $columns['product_brand_weight'] = __('Weight', 'woocommerce');
+    $columns['product_brand_image'] = __('Logo', 'woocommerce');
     return $columns;
   }
 
@@ -50,6 +48,18 @@ class WooCommerce_Product_Brand
         $content = '-';
       }
     }
+
+    if ($column_name === 'product_brand_image') {
+      $image_id = get_term_meta($term_id, 'product_brand_image', true);
+      $size = array('75','50');
+      $image = wp_get_attachment_image($image_id, $size);
+      if (!empty($image)) {
+        $content = $image;
+      } else {
+        $content = '-';
+      }
+    }
+
     return $content;
   }
 
@@ -79,7 +89,6 @@ class WooCommerce_Product_Brand
     $weight = sanitize_text_field($_POST['product_brand_weight']);
     update_term_meta($term_id, 'product_brand_weight', $weight);
   }
-
 
   public function term_link($url, $term)
   {
