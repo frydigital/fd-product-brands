@@ -25,8 +25,6 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand {
       )
     ));
 
-    ob_start();
-
     $output = '';
 
     if (!empty($brands)) {
@@ -35,12 +33,12 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand {
       foreach ($brands as $brand) {
         $brand_id = $brand->term_id;
         $brand_name = $brand->name;
-        $brand_image_id = get_term_meta($brand_id, 'brand_image', true);
+        $brand_image_id = get_term_meta($brand_id, 'product_brand_image', true);
         $brand_image_url = wp_get_attachment_url($brand_image_id);
-        $brand_weight = get_term_meta($brand_id, 'brand_weight', true);
+        $brand_weight = get_term_meta($brand_id, 'product_brand_weight', true);
 
         $output .= '<div class="brand-item">';
-        $output .= '<a href="' . esc_url(add_query_arg('product_brand', $brand_name, get_permalink(woocommerce_get_page_id('shop')))) . '">';
+        $output .= '<a href="' . esc_url(add_query_arg('product_brand', $brand_name, get_permalink(wc_get_page_id('shop')))) . '">';
         $output .= '<img src="' . $brand_image_url . '" alt="' . $brand_name . '" />';
         $output .= '</a>';
         $output .= '</div>';
@@ -49,12 +47,11 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand {
       $output .= '</div>';
 
       // Add the Flickity scripts and styles
-      $output .= '<script src="' . plugin_dir_url(__FILE__) . 'js/flickity.min.js"></script>';
-      $output .= '<link rel="stylesheet" href="' . plugin_dir_url(__FILE__) . 'css/flickity.min.css" />';
+      $output .= '<script src="' . plugin_dir_url(__FILE__) . 'js/flickity.pkgd.min.js"></script>';
+      $output .= '<link rel="stylesheet" href="' . plugin_dir_url(__FILE__) . 'css/flickity.css" />';
       $output .= '<script>jQuery(".brand-gallery").flickity();</script>';
-    }
+    } 
 
-    $output = ob_get_clean();
     return $output;
   }
 
