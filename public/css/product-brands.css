@@ -1,0 +1,16 @@
+.flickity-enabled {
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
+
+.flickity-enabled .carousel-cell {
+  height: 200px;
+  width: 200px;
+  margin-left: 3rem;
+}
+
+.flickity-enabled .carousel-cell img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}

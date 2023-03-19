@@ -6,6 +6,7 @@ Description: A WooCommerce plugin that adds a custom taxonomy 'product_brand' to
 Version: 1.0.2
 Author: Fry Digital
 Author URI: https://frydigital.com/
+License: GPLv3
 */
 
 // Define the class that extends WooCommerce_Product_Brand

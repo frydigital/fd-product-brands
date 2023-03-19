@@ -30,6 +30,5 @@ class Product_Brand_Admin extends WooCommerce_Product_Brand {
     $orderby = get_option('product_brand_list_orderby', 'product_brand_weight');
     $order = get_option('product_brand_list_order', 'asc');
     // ...
-    echo ("hello world");
   }
 }
