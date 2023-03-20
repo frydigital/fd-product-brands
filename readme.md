@@ -1,5 +1,5 @@
 # FD Product Brands
-A WooCommerce plugin that adds a custom taxonomy 'product_brand' to products and allows the attachment of images to the product_brand. Each image links to a search result for that taxonomy.
+A WooCommerce plugin that adds a custom taxonomy 'product_brand' to products and allows the attachment of images to the product_brand. Each image links to a search result for that taxonomy. Utilized flickity.js for front end display (https://flickity.metafizzy.co/).
 
 ### Requirements
 * WooCommerce v7.5.0 (Tested)
@@ -12,6 +12,7 @@ To use this shortcode, you can simply add `[product_brand_list]` to any post or 
 * 1.0.2 - Added autoupdate functionality, reorganisation of folder structure.
 * 1.0.3 - Reassign flickity file location
 * 1.0.4 - Update display styles and default options
+* 1.0.5 - Remove private key for updates (push to public repo)
 
 
 # Future Development
