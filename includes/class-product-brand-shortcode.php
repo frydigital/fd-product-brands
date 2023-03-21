@@ -28,6 +28,7 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand {
     $flickityOptions = array(
       'groupCells' => true,
       'contain' => true,
+      'draggable' => true,
     );
 
     $output = '';

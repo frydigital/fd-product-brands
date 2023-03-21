@@ -13,6 +13,7 @@ To use this shortcode, you can simply add `[product_brand_list]` to any post or 
 * 1.0.3 - Reassign flickity file location
 * 1.0.4 - Update display styles and default options
 * 1.0.5 - Remove private key for updates (push to public repo)
+* 1.0.6 - Responsive CSS update, enable draggable
 
 
 # Future Development
