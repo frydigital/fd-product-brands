@@ -15,6 +15,7 @@ To use this shortcode, you can simply add `[product_brand_list]` to any post or 
 * 1.0.5 - Remove private key for updates (push to public repo)
 * 1.0.6 - Responsive CSS update, enable draggable
 * 1.0.7 - shortcode url link correction, link to slug instead of brand name.
+* 1.0.8 - Bug Fix - class WooCommerce_Product_Brand does not have a method "save_product_brand_meta_data"
 
 
 # Future Development

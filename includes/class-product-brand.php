@@ -7,8 +7,6 @@ class WooCommerce_Product_Brand
   public function __construct()
   {
     add_action('init', array($this, 'register_product_brand_taxonomy'));
-    add_action('save_post_product', array($this, 'save_product_brand_meta_data'));
-    add_action('save_post_product', array($this, 'save_product_brand_weight_data'));
     add_filter('term_link', array($this, 'term_link'), 10, 2);
   }
 
@@ -96,17 +94,7 @@ class WooCommerce_Product_Brand
     return $vars;
   }
 
-  public function save_product_brand_weight_data($term_id, $tt_id, $taxonomy)
-  {
-    if (!isset($_POST['product_brand_weight'])) {
-      return;
-    }
-
-    $weight = sanitize_text_field($_POST['product_brand_weight']);
-    update_term_meta($term_id, 'product_brand_weight', $weight);
-  }
-
-  public function term_link($url, $term)
+public function term_link($url, $term)
   {
     if ($term->taxonomy === 'product_brand') {
       $url = add_query_arg(array('product_brand' => $term->slug), home_url('/'));
