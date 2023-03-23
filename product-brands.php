@@ -15,6 +15,14 @@ require_once(plugin_dir_path(__FILE__) . 'includes/class-product-brand-shortcode
 require_once(plugin_dir_path(__FILE__) . 'includes/class-product-brand-admin.php');
 require_once(plugin_dir_path(__FILE__) . 'includes/class-product-brand-meta.php');
 
+function my_plugin_activation_hook() {
+  if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+      deactivate_plugins( plugin_basename( __FILE__ ) );
+      wp_die( 'Sorry, but this plugin requires WooCommerce to be installed and activated.' );
+  }
+}
+
+register_activation_hook( __FILE__, 'my_plugin_activation_hook' );
 
 // Define the function that registers the plugin
 function my_product_brand_plugin() {
