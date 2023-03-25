@@ -34,7 +34,7 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand {
     $output = '';
 
     if (!empty($brands)) {
-      $output .= '<div class="brand-gallery main-carousel">';
+      $output .= '<div class="fd-product-brand brand-gallery main-carousel">';
 
       foreach ($brands as $brand) {
         $brand_id = $brand->term_id;
