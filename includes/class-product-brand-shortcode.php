@@ -36,7 +36,7 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
     $output = '';
 
     if (!empty($brands)) {
-      $output .= '<div class="fd-product-brand brand-gallery main-carousel">';
+      $output .= '<div class="fd-product-brand brand-gallery main-carousel row">';
 
       foreach ($brands as $brand) {
         $brand_id = $brand->term_id;
@@ -45,9 +45,9 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
         $brand_image_id = get_term_meta($brand_id, 'product_brand_logo', true);
         $brand_image_url = wp_get_attachment_url($brand_image_id);
 
-        $output .= '<div class="brand-item carousel-cell">';
+        $output .= '<div class="brand-item carousel-cell col">';
         $output .= '<a href="' . esc_url(add_query_arg('product_brand', $brand_slug, get_permalink(wc_get_page_id('shop')))) . '">';
-        $output .= '<img '. $atts['image_class'] . 'src="' . $brand_image_url . '" alt="' . $brand_name . '" style="max-width: '. $atts['width'] .';" />';
+        $output .= '<img class="'. $atts['image_class'] . '" src="' . $brand_image_url . '" alt="' . $brand_name . '" style="max-width: '. $atts['width'] .';" />';
         $output .= '</a>';
         $output .= '</div>';
       }
