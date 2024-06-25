@@ -22,10 +22,10 @@ class Product_Brand_Meta extends WooCommerce_Product_Brand
 
   public function save_brand_image_and_weight($term_id)
   {
-    if (isset($_POST['product_brand_image'])) {
-      $image_id = $_POST['product_brand_image'];
+    if (isset($_POST['product_brand_logo'])) {
+      $image_id = $_POST['product_brand_logo'];
       if (!empty($image_id)) {
-        update_term_meta($term_id, 'product_brand_image', $image_id);
+        update_term_meta($term_id, 'product_brand_logo', $image_id);
       }
     }
     if (isset($_POST['product_brand_weight'])) {
@@ -35,10 +35,10 @@ class Product_Brand_Meta extends WooCommerce_Product_Brand
       }
     }
     // Upload image and set as term meta
-    if (!empty($_FILES['product_brand_image_file']['name'])) {
-      $uploaded_image = media_handle_upload('product_brand_image_file', $term_id);
+    if (!empty($_FILES['product_brand_logo_file']['name'])) {
+      $uploaded_image = media_handle_upload('product_brand_logo_file', $term_id);
       if (!is_wp_error($uploaded_image)) {
-        update_term_meta($term_id, 'product_brand_image', $uploaded_image);
+        update_term_meta($term_id, 'product_brand_logo', $uploaded_image);
       }
     }
   }
@@ -48,8 +48,8 @@ class Product_Brand_Meta extends WooCommerce_Product_Brand
     // Add the image and weight fields to the product_brand taxonomy form
 ?>
     <div class="form-field term-group">
-      <label for="product_brand_image"><?php esc_html_e('Brand Image', 'text-domain'); ?></label>
-      <input type="hidden" id="product_brand_image" name="product_brand_image" value="">
+      <label for="product_brand_logo"><?php esc_html_e('Brand Logo', 'text-domain'); ?></label>
+      <input type="hidden" id="product_brand_logo" name="product_brand_logo" value="">
       <img id="brand-image-preview" src="" style="max-width: 100%; display: none;">
       <input type="button" id="brand-image-upload-button" class="button" value="<?php esc_attr_e('Upload Image', 'text-domain'); ?>">
       <script>
@@ -75,7 +75,7 @@ class Product_Brand_Meta extends WooCommerce_Product_Brand
             mediaUploader.on('select', function() {
               var attachment = mediaUploader.state().get('selection').first().toJSON();
               $('#brand-image-preview').attr('src', attachment.url);
-              $('#product_brand_image').val(attachment.id);
+              $('#product_brand_logo').val(attachment.id);
               $('#brand-image-preview').show();
             });
             // Open the uploader dialog
@@ -94,19 +94,19 @@ class Product_Brand_Meta extends WooCommerce_Product_Brand
   public function edit_brand_fields($term)
   {
     // Retrieve current values of fields
-    $image_id = get_term_meta($term->term_id, 'product_brand_image', true);
+    $image_id = get_term_meta($term->term_id, 'product_brand_logo', true);
     $weight = get_term_meta($term->term_id, 'product_brand_weight', true);
 
     // Output the fields
   ?>
     <tr class="form-field">
-      <th scope="row" valign="top"><label for="product_brand_image"><?php _e('Brand Image'); ?></label></th>
+      <th scope="row" valign="top"><label for="product_brand_logo"><?php _e('Brand Image'); ?></label></th>
       <td>
         <?php if (!empty($image_id)) { ?>
           <img src="<?php echo wp_get_attachment_url($image_id); ?>" style="max-width: 200px;" />
           <br /><br />
         <?php } ?>
-        <input type="hidden" id="product_brand_image" name="product_brand_image" value="<?php echo esc_attr($image_id); ?>" />
+        <input type="hidden" id="product_brand_logo" name="product_brand_logo" value="<?php echo esc_attr($image_id); ?>" />
         <button id="upload_image_button" class="button"><?php _e('Upload Image'); ?></button>
         <script>
           jQuery(document).ready(function($) {
@@ -126,7 +126,7 @@ class Product_Brand_Meta extends WooCommerce_Product_Brand
               });
               custom_uploader.on('select', function() {
                 var attachment = custom_uploader.state().get('selection').first().toJSON();
-                $('#product_brand_image').val(attachment.id);
+                $('#product_brand_logo').val(attachment.id);
                 $('img').attr('src', attachment.url);
               });
               custom_uploader.open();

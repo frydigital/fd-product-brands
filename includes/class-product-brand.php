@@ -1,6 +1,6 @@
 <?php
 
-
+// Initialize the class and add Brand taxonomy into WooCommerce
 
 class WooCommerce_Product_Brand
 {
@@ -15,17 +15,17 @@ class WooCommerce_Product_Brand
     $args = array(
       'hierarchical' => true,
       'labels' => array(
-        'name' => __('Product Brands', 'woocommerce'),
-        'singular_name' => __('Product Brand', 'woocommerce'),
-        'search_items' => __('Search Product Brands', 'woocommerce'),
-        'all_items' => __('All Product Brands', 'woocommerce'),
-        'parent_item' => __('Parent Product Brand', 'woocommerce'),
-        'parent_item_colon' => __('Parent Product Brand:', 'woocommerce'),
-        'edit_item' => __('Edit Product Brand', 'woocommerce'),
-        'update_item' => __('Update Product Brand', 'woocommerce'),
-        'add_new_item' => __('Add New Product Brand', 'woocommerce'),
-        'new_item_name' => __('New Product Brand Name', 'woocommerce'),
-        'menu_name' => __('Product Brands', 'woocommerce'),
+        'name' => __('Brands', 'woocommerce'),
+        'singular_name' => __('Brand', 'woocommerce'),
+        'search_items' => __('Search Brands', 'woocommerce'),
+        'all_items' => __('All Brands', 'woocommerce'),
+        'parent_item' => __('Parent Brand', 'woocommerce'),
+        'parent_item_colon' => __('Parent Brand:', 'woocommerce'),
+        'edit_item' => __('Edit Brand', 'woocommerce'),
+        'update_item' => __('Update Brand', 'woocommerce'),
+        'add_new_item' => __('Add New Brand', 'woocommerce'),
+        'new_item_name' => __('New Brand Name', 'woocommerce'),
+        'menu_name' => __('Brands', 'woocommerce'),
       ),
       'public' => true,
       'hierarchical' => false,
@@ -48,7 +48,7 @@ class WooCommerce_Product_Brand
   public function product_brand_columns($columns)
   {
     $columns['product_brand_weight'] = __('Weight', 'woocommerce');
-    $columns['product_brand_image'] = __('Logo', 'woocommerce');
+    $columns['product_brand_logo'] = __('Logo', 'woocommerce');
     return $columns;
   }
 
@@ -59,18 +59,18 @@ class WooCommerce_Product_Brand
       if (!empty($weight)) {
         $content = esc_html($weight);
       } else {
-        $content = '-';
+        $content = '';
       }
     }
 
-    if ($column_name === 'product_brand_image') {
-      $image_id = get_term_meta($term_id, 'product_brand_image', true);
+    if ($column_name === 'product_brand_logo') {
+      $image_id = get_term_meta($term_id, 'product_brand_logo', true);
       $size = array('75','50');
       $image = wp_get_attachment_image($image_id, $size);
       if (!empty($image)) {
         $content = $image;
       } else {
-        $content = '-';
+        $content = '';
       }
     }
 
@@ -80,18 +80,25 @@ class WooCommerce_Product_Brand
   public function product_brand_sortable_columns($columns)
   {
     $columns['product_brand_weight'] = 'product_brand_weight';
+    $columns['product_brand_logo'] = 'product_brand_logo';
     return $columns;
   }
 
   public function product_brand_sort_request($vars)
   {
-    if (isset($vars['orderby']) && $vars['orderby'] === 'product_brand_weight') {
-      $vars = array_merge($vars, array(
-        'meta_key' => 'product_brand_weight',
-        'orderby' => 'meta_value_num'
-      ));
-    }
-    return $vars;
+      if (isset($vars['orderby']) && 'product_brand_weight' == $vars['orderby']) {
+          $vars = array_merge($vars, array(
+              'meta_key' => 'product_brand_weight',
+              'orderby' => 'meta_value',
+          ));
+      } elseif (isset($vars['orderby']) && 'product_brand_logo' == $vars['orderby']) {
+          $vars = array_merge($vars, array(
+              'meta_key' => 'product_brand_logo',
+              'orderby' => 'meta_value',
+          ));
+      }
+  
+      return $vars;
   }
 
 public function term_link($url, $term)

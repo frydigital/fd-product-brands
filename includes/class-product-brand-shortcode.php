@@ -1,35 +1,35 @@
 <?php
 
-class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand {
-  
-  public function __construct() {
+class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
+{
+
+  public function __construct()
+  {
     parent::__construct();
     add_shortcode('product_brand_list', array($this, 'product_brand_list_shortcode'));
   }
 
-  public function product_brand_list_shortcode($atts) {
+  public function product_brand_list_shortcode($atts)
+  {
     $atts = shortcode_atts(array(
       'orderby' => 'product_brand_weight',
-      'order' => 'asc'
+      'order' => 'asc',
+      'scroll' => 'true',
+      'limit' => '12'
     ), $atts, 'product_brand_list');
 
     $brands = get_terms('product_brand', array(
+      'number' => $atts['limit'],
       'orderby' => $atts['orderby'],
       'order' => $atts['order'],
       'hide_empty' => false,
       'meta_query' => array(
         array(
-          'key' => 'product_brand_image',
+          'key' => 'product_brand_logo',
           'compare' => 'EXISTS'
         )
       )
     ));
-
-    $flickityOptions = array(
-      'groupCells' => true,
-      'contain' => true,
-      'draggable' => true,
-    );
 
     $output = '';
 
@@ -40,7 +40,7 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand {
         $brand_id = $brand->term_id;
         $brand_name = $brand->name;
         $brand_slug = $brand->slug;
-        $brand_image_id = get_term_meta($brand_id, 'product_brand_image', true);
+        $brand_image_id = get_term_meta($brand_id, 'product_brand_logo', true);
         $brand_image_url = wp_get_attachment_url($brand_image_id);
 
         $output .= '<div class="brand-item carousel-cell">';
@@ -52,18 +52,25 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand {
 
       $output .= '</div>';
 
-      // Add the Flickity scripts and styles
-      $output .= '<script src="' .  plugin_dir_url(__DIR__) . 'public/js/flickity.pkgd.min.js"></script>';
-      $output .= '<link rel="stylesheet" href="' . plugin_dir_url(__DIR__) . 'public/css/flickity.css" />';
-      $output .= '<link rel="stylesheet" href="' . plugin_dir_url(__DIR__) . 'public/css/product-brands.css" />';
-      $output .= '<script>jQuery(".brand-gallery").flickity(' . json_encode($flickityOptions) . ');</script>';
-      
-    } 
+      if ($atts['scroll'] === 'true') {
+        // Add the Flickity scripts and styles
+
+        $flickityOptions['groupCells'] = true;
+        $flickityOptions['contain'] = true;
+        $flickityOptions['draggable'] = true;
+
+        $output .= '<script src="' .  plugin_dir_url(__DIR__) . 'public/js/flickity.pkgd.min.js"></script>';
+        $output .= '<link rel="stylesheet" href="' . plugin_dir_url(__DIR__) . 'public/css/flickity.css" />';
+        $output .= '<link rel="stylesheet" href="' . plugin_dir_url(__DIR__) . 'public/css/product-brands.css" />';
+        $output .= '<script>jQuery(".brand-gallery").flickity(' . json_encode($flickityOptions) . ');</script>';
+      }
+    }
 
     return $output;
   }
 
-  private function get_total_quantity_by_term($term_id) {
+  private function get_total_quantity_by_term($term_id)
+  {
     $args = array(
       'post_type' => 'product',
       'posts_per_page' => -1,
@@ -91,7 +98,8 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand {
     return $total_quantity;
   }
 
-  private function get_total_retail_value_by_term($term_id) {
+  private function get_total_retail_value_by_term($term_id)
+  {
     $args = array(
       'post_type' => 'product',
       'posts_per_page' => -1,
@@ -107,16 +115,16 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand {
     $products = new WP_Query($args);
     $total_value = 0;
     if ($products->have_posts()) {
-        while ($products->have_posts()) {
-          $products->the_post();
-          $product = wc_get_product(get_the_ID());
-          $total_value += $product->get_price();
-        }
-        wp_reset_postdata();
+      while ($products->have_posts()) {
+        $products->the_post();
+        $product = wc_get_product(get_the_ID());
+        $total_value += $product->get_price();
       }
-      
-      return $total_value;
+      wp_reset_postdata();
     }
+
+    return $total_value;
+  }
 }
 
 // In this class, we first define the `__construct()` method, which calls the parent constructor and adds the `product_brand_list` shortcode with the `product_brand_list_shortcode()` method as its callback.
