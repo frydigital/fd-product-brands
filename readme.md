@@ -18,6 +18,7 @@ To use this shortcode, you can simply add `[product_brand_list]` to any post or 
 * 1.0.8 - Bug Fix - class WooCommerce_Product_Brand does not have a method "save_product_brand_meta_data"
 * 1.0.9 - Updated CSS rules to isolate styling to product brands only.
 * 1.0.10 - Added shortcode attributes for limit and scroll.  Scroll=0 disables flickity functionality & scripts. Limit=12 sets the number of brands to display (default 12).
+* 1.0.11 - Introduce 'width' atts, default 200px. Accepts any valid CSS width value.
 
 
 # Future Development
