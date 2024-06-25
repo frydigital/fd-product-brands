@@ -16,7 +16,8 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
       'order' => 'asc',
       'scroll' => 'true',
       'limit' => '12',
-      'width' => '200px'
+      'width' => '200px',
+      'image_class' => 'brand-image'
     ), $atts, 'product_brand_list');
 
     $brands = get_terms('product_brand', array(
@@ -46,7 +47,7 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
 
         $output .= '<div class="brand-item carousel-cell">';
         $output .= '<a href="' . esc_url(add_query_arg('product_brand', $brand_slug, get_permalink(wc_get_page_id('shop')))) . '">';
-        $output .= '<img src="' . $brand_image_url . '" alt="' . $brand_name . '" style="max-width: '. $atts['width'] .';" />';
+        $output .= '<img '. $atts['image_class'] . 'src="' . $brand_image_url . '" alt="' . $brand_name . '" style="max-width: '. $atts['width'] .';" />';
         $output .= '</a>';
         $output .= '</div>';
       }
