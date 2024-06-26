@@ -36,7 +36,11 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
     $output = '';
 
     if (!empty($brands)) {
-      $output .= '<div class="fd-product-brand brand-gallery main-carousel row">';
+      $output .= '<div class="fd-product-brand brand-gallery main-carousel ">';
+
+      if ($atts['scroll'] === 'false') {
+        $output .= '<div class="row align-items-center row-cols-2 row-cols-md-4 row-cols-lg-5">';
+      }
 
       foreach ($brands as $brand) {
         $brand_id = $brand->term_id;
@@ -65,6 +69,8 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
         $output .= '<link rel="stylesheet" href="' . plugin_dir_url(__DIR__) . 'public/css/flickity.css" />';
         $output .= '<link rel="stylesheet" href="' . plugin_dir_url(__DIR__) . 'public/css/product-brands.css" />';
         $output .= '<script>jQuery(".brand-gallery").flickity(' . json_encode($flickityOptions) . ');</script>';
+      } else {
+        $output .= '</div>';
       }
     }
 

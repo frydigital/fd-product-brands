@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Product Brand
 Plugin URI: https://frydigital.com/plugins/fd-product-brands/
 Description: A WooCommerce plugin that adds a custom taxonomy 'product_brand' to products and allows the attachment of images to the product_brand. Each image links to a search result for that taxonomy.
-Version: 1.0.12
+Version: 1.0.13
 Author: Fry Digital
 Author URI: https://frydigital.com/
 License: GPLv3
@@ -50,7 +50,7 @@ add_action('plugins_loaded', 'my_product_brand_plugin');
  use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
  
  $myUpdateChecker = PucFactory::buildUpdateChecker(
-   'https://github.com/fryshaun/fd-product-brands/',
+   'https://github.com/arbutusroutes/fd-product-brands/',
    __FILE__,
    'fd-product-brands'
  );
