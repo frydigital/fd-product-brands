@@ -1,25 +1,25 @@
   @media screen and (max-width: 768px) {
-    .fd-product-brand {
+    .fd-product-brand .flickity-enabled  {
       margin-left: 0;
       margin-right: 0;
     }
-    .fd-product-brand .carousel-cell {
+    .fd-product-brand .flickity-enabled .carousel-cell {
       margin-left: 0;
     }
   }
 
-  .fd-product-brand  {
+  .fd-product-brand .flickity-enabled   {
     margin-left: 5rem;
     margin-right: 5rem;
   }
 
-  .fd-product-brand .carousel-cell {
+  .fd-product-brand .flickity-enabled .carousel-cell {
     height: 200px;
     width: 200px;
     margin-left: 3rem;
   }
 
-  .fd-product-brand .carousel-cell img {
+  .fd-product-brand .flickity-enabled  .carousel-cell img {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
