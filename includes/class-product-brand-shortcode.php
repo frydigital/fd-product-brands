@@ -40,6 +40,8 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
 
       if ($atts['scroll'] === 'false') {
         $output .= '<div class="row align-items-center row-cols-2 row-cols-md-4 row-cols-lg-5">';
+      } else {
+        $output .= '<div class="flickity-enabled">';
       }
 
       foreach ($brands as $brand) {
@@ -51,7 +53,7 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
 
         $output .= '<div class="brand-item carousel-cell col">';
         $output .= '<a href="' . esc_url(add_query_arg('product_brand', $brand_slug, get_permalink(wc_get_page_id('shop')))) . '">';
-        $output .= '<img class="'. $atts['image_class'] . '" src="' . $brand_image_url . '" alt="' . $brand_name . '" style="max-width: '. $atts['width'] .';" />';
+        $output .= '<img class="' . $atts['image_class'] . '" src="' . $brand_image_url . '" alt="' . $brand_name . '" style="max-width: ' . $atts['width'] . ';" />';
         $output .= '</a>';
         $output .= '</div>';
       }
@@ -59,19 +61,19 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
       $output .= '</div>';
 
       if ($atts['scroll'] === 'true') {
-        // Add the Flickity scripts and styles
 
-        $flickityOptions['groupCells'] = true;
-        $flickityOptions['contain'] = true;
-        $flickityOptions['draggable'] = true;
+        $flickityOptions = [
+          'groupCells' => true,
+          'contain' => true,
+          'draggable' => true
+        ];
 
         $output .= '<script src="' .  plugin_dir_url(__DIR__) . 'public/js/flickity.pkgd.min.js"></script>';
         $output .= '<link rel="stylesheet" href="' . plugin_dir_url(__DIR__) . 'public/css/flickity.css" />';
         $output .= '<link rel="stylesheet" href="' . plugin_dir_url(__DIR__) . 'public/css/product-brands.css" />';
         $output .= '<script>jQuery(".brand-gallery").flickity(' . json_encode($flickityOptions) . ');</script>';
-      } else {
-        $output .= '</div>';
       }
+      $output .= '</div>';
     }
 
     return $output;
