@@ -13,3 +13,4 @@
 * 1.0.12 - Introduce 'image_class' atts, default 'brand-image'. Accepts any valid CSS class name.
 * 1.0.13 - Added CSS classes for proper alignment and spacing.
 * 1.0.14 - Added 'flickity-enabled' class to container when flickity is enabled.  This should allow themes to style the container differently when flickity is enabled.
+* 1.1 - updated to be compatible with Woo 9.4+ native brands support.  Removed pre-9.4 compatibility (Meta box and customer taxonomy creation)

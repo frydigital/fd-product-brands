@@ -6,10 +6,10 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
   public function __construct()
   {
     parent::__construct();
-    add_shortcode('product_brand_list', array($this, 'product_brand_list_shortcode'));
+    add_shortcode('product_brand_display', array($this, 'product_brand_display_shortcode'));
   }
 
-  public function product_brand_list_shortcode($atts)
+  public function product_brand_display_shortcode($atts)
   {
     $atts = shortcode_atts(array(
       'orderby' => 'product_brand_weight',
