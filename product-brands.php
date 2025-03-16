@@ -11,6 +11,7 @@ License: GPLv3
 
 
 require_once(plugin_dir_path(__FILE__) . 'includes/class-product-brand.php');
+require_once(plugin_dir_path(__FILE__) . 'includes/class-product-brand-meta.php');
 require_once(plugin_dir_path(__FILE__) . 'includes/class-product-brand-shortcode.php');
 
 
