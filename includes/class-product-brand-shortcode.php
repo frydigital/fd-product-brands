@@ -6,10 +6,10 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
   public function __construct()
   {
     parent::__construct();
-    add_shortcode('product_brand_list', array($this, 'product_brand_list_shortcode'));
+    add_shortcode('product_brand_display', array($this, 'product_brand_display_shortcode'));
   }
 
-  public function product_brand_list_shortcode($atts)
+  public function product_brand_display_shortcode($atts)
   {
     $atts = shortcode_atts(array(
       'orderby' => 'product_brand_weight',
@@ -27,7 +27,7 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
       'hide_empty' => false,
       'meta_query' => array(
         array(
-          'key' => 'product_brand_logo',
+          'key' => 'thumbnail_id',
           'compare' => 'EXISTS'
         )
       )
@@ -48,8 +48,7 @@ class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
         $brand_id = $brand->term_id;
         $brand_name = $brand->name;
         $brand_slug = $brand->slug;
-        $brand_image_id = get_term_meta($brand_id, 'product_brand_logo', true);
-        $brand_image_url = wp_get_attachment_url($brand_image_id);
+        $brand_image_url = get_brand_thumbnail_url($brand_id);
 
         $output .= '<div class="brand-item carousel-cell col">';
         $output .= '<a href="' . esc_url(add_query_arg('product_brand', $brand_slug, get_permalink(wc_get_page_id('shop')))) . '">';
