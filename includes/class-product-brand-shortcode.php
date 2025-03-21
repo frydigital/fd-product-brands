@@ -1,10 +1,9 @@
 <?php
 
-class WooCommerce_Product_Brand_Shortcode extends WooCommerce_Product_Brand
+class WooCommerce_Product_Brand_Shortcode
 {
   public function __construct()
   {
-    parent::__construct();
     add_shortcode('product_brand_display', array($this, 'product_brand_display_shortcode'));
   }
 
