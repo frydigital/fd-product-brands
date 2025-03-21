@@ -3,17 +3,14 @@
 Plugin Name: WooCommerce Product Brand
 Plugin URI: https://frydigital.com/plugins/fd-product-brands/
 Description: A WooCommerce plugin that adds a custom taxonomy 'product_brand' to products and allows the attachment of images to the product_brand. Each image links to a search result for that taxonomy.
-Version: 1.1.1
+Version: 1.1.2
 Author: Fry Digital
 Author URI: https://frydigital.com/
 License: GPLv3
 */
 
-
 require_once(plugin_dir_path(__FILE__) . 'includes/class-product-brand.php');
-require_once(plugin_dir_path(__FILE__) . 'includes/class-product-brand-meta.php');
 require_once(plugin_dir_path(__FILE__) . 'includes/class-product-brand-shortcode.php');
-
 
 function my_plugin_activation_hook()
 {
@@ -22,16 +19,13 @@ function my_plugin_activation_hook()
     wp_die('Sorry, but this plugin requires WooCommerce to be installed and activated.');
   }
 }
-
 register_activation_hook(__FILE__, 'my_plugin_activation_hook');
 
-// Define the function that registers the plugin
-function my_product_brand_plugin()
-{
-  new WooCommerce_Product_Brand();
-  new WooCommerce_Product_Brand_Shortcode();
-}
-add_action('plugins_loaded', 'my_product_brand_plugin');
+add_action('plugins_loaded', function () {
+  if (class_exists('WC_Brands_Admin')) {
+    remove_action('product_brand_edit_form_fields', array('WC_Brands_Admin', 'edit_thumbnail_field'), 10);
+  }
+}, 20);
 
 /**
  * 
