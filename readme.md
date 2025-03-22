@@ -1,5 +1,5 @@
 # FD Product Brands
-A WooCommerce plugin that adds a custom taxonomy 'product_brand' to products and allows the attachment of images to the product_brand. Each image links to a search result for that taxonomy. Utilized flickity.js for front end display (https://flickity.metafizzy.co/).
+Elegently display and sort WooCommerce brands. Modify sort weight and toggle display.  Now utilizing the built-in product_brand taxonomy from WooCommerce 9.4+
 
 ### Requirements
 * WooCommerce 9.4+
