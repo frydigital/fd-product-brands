@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Product Brand
 Plugin URI: https://frydigital.com/plugins/fd-product-brands/
 Description: Elegently display and sort WooCommerce brands. Modify sort weight and toggle display.
-Version: 1.1.3
+Version: 1.1.4
 Author: Fry Digital
 Author URI: https://frydigital.com/
 License: GPLv3

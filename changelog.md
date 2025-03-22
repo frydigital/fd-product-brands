@@ -17,3 +17,4 @@
 * 1.1.1 - More robust sort by weight. Add display true/false checkbox to admin screen
 * 1.1.2 - Fix multiple display box in admin.  Fix weight not showing in admin
 * 1.1.3 - reinitiate shortcode
+* 1.1.4 - description updates
