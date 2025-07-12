@@ -18,3 +18,4 @@
 * 1.1.2 - Fix multiple display box in admin.  Fix weight not showing in admin
 * 1.1.3 - reinitiate shortcode
 * 1.1.4 - description updates
+* 1.1.5 - SEO Accesibility updates + PUC 5.6 update
