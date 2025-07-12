@@ -81,10 +81,12 @@ class WooCommerce_Product_Brand_Shortcode
         $brand_name = $brand->name;
         $brand_slug = $brand->slug;
         $brand_image_url = get_brand_thumbnail_url($brand_id);
+        $brand_width = intval($atts['width']);
+        $brand_height = $brand_width / 4;
 
         $output .= '<div class="brand-item carousel-cell col">';
         $output .= '<a href="' . esc_url(add_query_arg('product_brand', $brand_slug, get_permalink(wc_get_page_id('shop')))) . '">';
-        $output .= '<img class="' . $atts['image_class'] . '" src="' . $brand_image_url . '" alt="' . $brand_name . '" style="max-width: ' . $atts['width'] . ';" />';
+        $output .= '<img class="' . esc_attr($atts['image_class']) . '" src="' . esc_url($brand_image_url) . '" width="' . esc_attr($brand_width) . '" height="' . esc_attr($brand_height) . '" alt="' . esc_attr($brand_name) . '" loading="lazy" decoding="async" style="max-width: ' . esc_attr($atts['width']) . ';" />';
         $output .= '</a>';
         $output .= '</div>';
       }
